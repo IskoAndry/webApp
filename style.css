@@ -33,21 +33,21 @@ h2 {
 
 .progres-bar {
     height: 100%;
-    width: 0;
-    background-color: #3498db;
+    width: 100%;
+    /* background-color: #3498db; */
     border-radius: 10px;
-    transition: width 0.5s ease;
-    position: relative;
+    /* transition: width 0.5s ease; */
+    position: relative; 
 }
 
 .progress-value {
-    position: absolute;
-    right: 10px;
+    position: absolute; 
     top: 50%;
     transform: translateY(-50%);
-    color: white;
+    color: white; 
     font-size: 12px;
-    font-weight: bold;
+    font-weight: bold; 
+    
 }
 
 /* Карточки технологий */
@@ -77,6 +77,10 @@ h2 {
 
 .card h3 {
     margin: 0;
+}
+.card.done{
+    background: #09ac4d;
+    color: #000;
 }
 
 /* Форма */
@@ -116,6 +120,23 @@ textarea {
     min-height: 100px;
     resize: vertical;
 }
+
+.form input.invalid,
+.form textarea.invalid{
+    animation: validate 2s;
+}
+@keyframes validate {
+    0% {
+        border: 1px solid red;
+    }
+    50%{
+        border: 1px solid red;
+    }
+    100% {
+        border: 1px solid rgb(240, 229, 229);
+        }
+    }
+
 
 .btn {
     background-color: #2ecc71;
