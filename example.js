@@ -14,83 +14,85 @@ getModal.addEventListener('change', toggleTech)
 getForm.addEventListener('submit', createTech)
 
 const APP_TITLE = document.title 
+const LS_KEY = 'MY_TECHS'
 
-const technologies = [
-  {
-    title: "HTML",
-    description: "HyperText Markup Language - стандартный язык разметки для создания веб-страниц",
-    type: "html",
-    done: true,
-  },
-  {
-    title: "CSS",
-    description: "Cascading Style Sheets - язык стилей для описания внешнего вида HTML-документов",
-    type: "css",
-    done: true
-  },
-  {
-    title: "JavaScript",
-    description: "Язык программирования для создания интерактивных веб-страниц",
-    type: "js",
-    done: true
-  },
-  {
-    title: "Git",
-    description: "Система контроля версий для отслеживания изменений в коде",
-    type: "git",
-    done: false
-  },
-  {
-    title: "React",
-    description: "JavaScript-библиотека для создания пользовательских интерфейсов",
-    type: "react",
-    done: false
-  },
-  {
-    title: "TypeScript",
-    description: "Типизированное надмножество JavaScript, добавляющее статическую типизацию",
-    type: "ts",
-    done: false
-  },
-  {
-    title: "SASS/SCSS",
-    description: "Препроцессор CSS, добавляющий переменные, вложенность, миксины и другие возможности",
-    type: "SASS/SCSS",
-    done: false
-  },
-  {
-    title: "Vite",
-    description: "Сборщик модулей для JavaScript-приложений",
-    type: "vite",
-    done: false
-  },
-  {
-    title: "Bootstrap",
-    description: "Популярный CSS-фреймворк для создания адаптивных веб-сайтов",
-    type: "bootstrap",
-    done: false
-  },
-  {
-    title: "Redux",
-    description: "Библиотека для управления состоянием JavaScript-приложений",
-    type: "redux",
-    done: false
-  },
-  {
-    title: "REST API",
-    description: "Архитектурный стиль для создания веб-сервисов",
-    type: "restApi",
-    done: false
-  },
-  {
-    title: "Node.js",
-    description: "Среда выполнения JavaScript на стороне сервера",
-    type: "Node",
-    done: false
-  }
-];
+// const technologies = [
+//   {
+//     title: "HTML",
+//     description: "HyperText Markup Language - стандартный язык разметки для создания веб-страниц",
+//     type: "html",
+//     done: true,
+//   },
+//   {
+//     title: "CSS",
+//     description: "Cascading Style Sheets - язык стилей для описания внешнего вида HTML-документов",
+//     type: "css",
+//     done: true
+//   },
+//   {
+//     title: "JavaScript",
+//     description: "Язык программирования для создания интерактивных веб-страниц",
+//     type: "js",
+//     done: true
+//   },
+//   {
+//     title: "Git",
+//     description: "Система контроля версий для отслеживания изменений в коде",
+//     type: "git",
+//     done: false
+//   },
+//   {
+//     title: "React",
+//     description: "JavaScript-библиотека для создания пользовательских интерфейсов",
+//     type: "react",
+//     done: false
+//   },
+//   {
+//     title: "TypeScript",
+//     description: "Типизированное надмножество JavaScript, добавляющее статическую типизацию",
+//     type: "ts",
+//     done: false
+//   },
+//   {
+//     title: "SASS/SCSS",
+//     description: "Препроцессор CSS, добавляющий переменные, вложенность, миксины и другие возможности",
+//     type: "SASS/SCSS",
+//     done: false
+//   },
+//   {
+//     title: "Vite",
+//     description: "Сборщик модулей для JavaScript-приложений",
+//     type: "vite",
+//     done: false
+//   },
+//   {
+//     title: "Bootstrap",
+//     description: "Популярный CSS-фреймворк для создания адаптивных веб-сайтов",
+//     type: "bootstrap",
+//     done: false
+//   },
+//   {
+//     title: "Redux",
+//     description: "Библиотека для управления состоянием JavaScript-приложений",
+//     type: "redux",
+//     done: false
+//   },
+//   {
+//     title: "REST API",
+//     description: "Архитектурный стиль для создания веб-сервисов",
+//     type: "restApi",
+//     done: false
+//   },
+//   {
+//     title: "Node.js",
+//     description: "Среда выполнения JavaScript на стороне сервера",
+//     type: "Node",
+//     done: false
+//   }
+// ];
 
 // console.log(technologies)
+const technologies = getState()
 
 function openCard(event){
   const data = event.target.dataset
@@ -119,6 +121,7 @@ function toggleTech(e){
   const tech = technologies.find(t => t.type === type )
   tech.done = e.target.checked
 
+saveState()
   init()
 }
 
@@ -235,8 +238,17 @@ function createTech(e){
   technologies.push(newTech)
   title.value = ''
   discription.value = ''
-
+saveState()
   init()
 }
+
+function saveState(){
+  localStorage.setItem(LS_KEY, JSON.stringify(technologies))
+}
+function getState(){
+  const row = localStorage.getItem(LS_KEY)
+  return row ? JSON.parse(row) : []
+}
+
 
 init()
