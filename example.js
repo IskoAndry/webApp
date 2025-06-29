@@ -212,9 +212,6 @@ function isInvalid(title, discription){
 function createTech(e){
   e.preventDefault()
 
-  // const title = e.target.title
-  // const discription = e.target.discription
-
   const {title, discription} = e.target
 
   if(isInvalid(title, discription)){  
@@ -231,14 +228,14 @@ function createTech(e){
 
   const newTech = {
     title: title.value,
-    discription: discription.value,
+    description: discription.value, // Здесь исправлено с discription на description
     done: false,
     type: title.value.toLowerCase()
   }
   technologies.push(newTech)
   title.value = ''
   discription.value = ''
-saveState()
+  saveState()
   init()
 }
 
